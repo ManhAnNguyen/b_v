@@ -7,10 +7,10 @@ import {
 import { MongooseModule } from '@nestjs/mongoose';
 import { BannersModule } from './modules/banners/banners.module';
 import { NewsModule } from './modules/news/news.module';
-import { ProductServicesModule } from './modules/product-services/product-services.module';
 
 import * as dotenv from 'dotenv';
 import { PageMiddleware } from './common/middlewares/page.middleware';
+import { EventsModule } from './modules/events/events.module';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ dotenv.config();
     MongooseModule.forRoot(process.env.MONGODB_URI),
     BannersModule,
     NewsModule,
-    ProductServicesModule,
+    EventsModule,
   ],
   controllers: [],
   providers: [],

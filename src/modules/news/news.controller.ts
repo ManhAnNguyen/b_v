@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Query,
@@ -49,6 +51,7 @@ export class NewsController {
   //update
 
   @Post(':id')
+  @HttpCode(HttpStatus.OK)
   @UseInterceptors(CustomFileInterceptor('image', 'news'))
   async updateOne(
     @Body() data: UpdateOneDto,

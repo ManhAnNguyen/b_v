@@ -45,7 +45,6 @@ export class BannersService {
   //update
   async update({ id, ...rest }: IUpdateBanner) {
     const banner = await this.findBanner(id);
-    console.log(banner.id);
     const data = await this.bannerModel.findByIdAndUpdate(
       banner.id,
       removePropertyEmpty({ ...rest, updatedAt: new Date() }),
