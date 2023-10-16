@@ -7,13 +7,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { Banner } from 'src/schemas/banner.schema';
 import { ICreateBanner, IUpdateBanner } from './banner.interfaces';
-import { removePropertyEmpty } from 'src/common/helpers';
+import { removePropertyEmpty } from 'src/common/utils/helper';
 
 @Injectable()
 export class BannersService {
   constructor(
     @InjectModel(Banner.name)
-    private readonly bannerModel: Model<BannersService>,
+    private readonly bannerModel: Model<Banner>,
   ) {}
 
   private async findBanner(id: string) {
@@ -48,7 +48,7 @@ export class BannersService {
     console.log(banner.id);
     const data = await this.bannerModel.findByIdAndUpdate(
       banner.id,
-      removePropertyEmpty(rest),
+      removePropertyEmpty({ ...rest, updatedAt: new Date() }),
     );
 
     return data;

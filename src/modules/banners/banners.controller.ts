@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   UploadedFile,
@@ -41,6 +43,7 @@ export class BannersController {
   //update
 
   @Post(':id')
+  @HttpCode(HttpStatus.OK)
   @UseInterceptors(CustomFileInterceptor('image', 'banner'))
   async updateBanner(
     @Param('id') id: string,
