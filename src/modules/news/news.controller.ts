@@ -9,6 +9,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { NewsService } from './news.service';
@@ -18,13 +19,18 @@ import { IPage } from 'src/common/utils/interface';
 import { UpdateOneDto } from './dtos/update-news.dto';
 
 import { ParamsIdDto } from 'src/common/dtos/params-id.dto';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { RoleGuard } from 'src/common/guards/role.guard';
+import { Public } from 'src/common/decorators/public.decorator';
 
+@UseGuards(AuthGuard, RoleGuard)
 @Controller('news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
   //get
   @Get()
+  @Public(true)
   async getAll(@Query() query: IPage) {
     const data = await this.newsService.findAll(query);
     return data;
@@ -32,6 +38,7 @@ export class NewsController {
 
   //get one
   @Get(':id')
+  @Public(true)
   async getOne(@Param() { id }: ParamsIdDto) {
     const news = await this.newsService.getDetail(id);
     return news;

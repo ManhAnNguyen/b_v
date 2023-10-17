@@ -10,3 +10,8 @@ export enum EFieldEvent {
   'TRAVEL' = 'TRAVEL',
   'ENTERTAINMENT' = 'ENTERTAINMENT',
 }
+
+export enum EUserRole {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}

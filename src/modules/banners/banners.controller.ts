@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { BannersService } from './banners.service';
@@ -15,13 +16,18 @@ import { CreateBannerDto } from './dtos/create-banner.dto';
 import { CustomFileInterceptor } from 'src/common/interceptors/upload.interceptor';
 import { UpdateBannerDto } from './dtos/update-banner.dto';
 import { ParamsIdDto } from 'src/common/dtos/params-id.dto';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { Public } from 'src/common/decorators/public.decorator';
+import { RoleGuard } from 'src/common/guards/role.guard';
 
 @Controller('banners')
+@UseGuards(AuthGuard, RoleGuard)
 export class BannersController {
   constructor(private readonly bannerService: BannersService) {}
 
   //get
   @Get()
+  @Public(true)
   async getBanner() {
     const data = await this.bannerService.getAll();
     return data;

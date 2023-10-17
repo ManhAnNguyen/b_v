@@ -12,12 +12,20 @@ import * as dotenv from 'dotenv';
 import { PageMiddleware } from './common/middlewares/page.middleware';
 import { EventsModule } from './modules/events/events.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MONGODB_URI } from './common/utils/env';
+import { JwtModule } from '@nestjs/jwt';
 
 dotenv.config();
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGODB_URI),
+    MongooseModule.forRoot(MONGODB_URI),
+    JwtModule.register({
+      global: true,
+      signOptions: {
+        expiresIn: '1d',
+      },
+    }),
     BannersModule,
     NewsModule,
     EventsModule,

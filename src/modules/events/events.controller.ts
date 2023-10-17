@@ -10,6 +10,7 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
@@ -18,13 +19,18 @@ import { CustomFileInterceptor } from 'src/common/interceptors/upload.intercepto
 import { EFieldEvent, EStatusEvent } from 'src/common/utils/enums';
 import { UpdateOneDto } from './dto/update-events.dto';
 import { ParamsIdDto } from 'src/common/dtos/params-id.dto';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { RoleGuard } from 'src/common/guards/role.guard';
+import { Public } from 'src/common/decorators/public.decorator';
 
 @Controller('events')
+@UseGuards(AuthGuard, RoleGuard)
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   //get
   @Get()
+  @Public(true)
   async findAll(
     @Query('keyword') keyword?: string,
     @Query('status', new ParseEnumPipe(EStatusEvent, { optional: true }))
