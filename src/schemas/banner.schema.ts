@@ -1,18 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { CoreSchema } from './base.schema';
 
-@Schema()
-export class Banner {
+@Schema({ timestamps: true })
+export class Banner extends CoreSchema {
   @Prop({ required: true })
   image: string;
   @Prop({ required: true })
   title: string;
   @Prop()
   description: string;
-  @Prop({ default: new Date() })
-  createdAt: Date;
-  @Prop({ default: null })
-  updatedAt: Date;
+
   @Prop({ required: true })
   link: string;
 }

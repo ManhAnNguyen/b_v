@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { CoreSchema } from './base.schema';
 
-@Schema()
-export class Events {
+@Schema({ timestamps: true })
+export class Events extends CoreSchema {
   @Prop({ required: true })
   image: string;
   @Prop({ required: true })
@@ -13,10 +14,7 @@ export class Events {
   field: string;
   @Prop()
   description: string;
-  @Prop({ default: new Date() })
-  createdAt: Date;
-  @Prop({ default: null })
-  updatedAt: Date;
+
   @Prop({ required: true })
   link: string;
 }

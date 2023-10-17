@@ -14,6 +14,7 @@ import { BannersService } from './banners.service';
 import { CreateBannerDto } from './dtos/create-banner.dto';
 import { CustomFileInterceptor } from 'src/common/interceptors/upload.interceptor';
 import { UpdateBannerDto } from './dtos/update-banner.dto';
+import { ParamsIdDto } from 'src/common/dtos/params-id.dto';
 
 @Controller('banners')
 export class BannersController {
@@ -46,7 +47,7 @@ export class BannersController {
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(CustomFileInterceptor('image', 'banner'))
   async updateBanner(
-    @Param('id') id: string,
+    @Param() { id }: ParamsIdDto,
     @Body() data: UpdateBannerDto,
     @UploadedFile() file: Express.Multer.File,
   ) {

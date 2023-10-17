@@ -1,18 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { CoreSchema } from './base.schema';
 
-@Schema()
-export class News {
+@Schema({ timestamps: true })
+export class News extends CoreSchema {
   @Prop({ required: true })
   image: string;
   @Prop({ required: true })
   title: string;
   @Prop({ required: true })
   content: string;
-  @Prop({ default: new Date() })
-  createdAt: Date;
-  @Prop({ default: null })
-  updatedAt: Date;
+
   @Prop({ required: true })
   category: string;
 }

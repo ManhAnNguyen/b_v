@@ -17,6 +17,8 @@ import { CustomFileInterceptor } from 'src/common/interceptors/upload.intercepto
 import { IPage } from 'src/common/utils/interface';
 import { UpdateOneDto } from './dtos/update-news.dto';
 
+import { ParamsIdDto } from 'src/common/dtos/params-id.dto';
+
 @Controller('news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
@@ -30,7 +32,7 @@ export class NewsController {
 
   //get one
   @Get(':id')
-  async getOne(@Param('id') id: string) {
+  async getOne(@Param() { id }: ParamsIdDto) {
     const news = await this.newsService.getDetail(id);
     return news;
   }
@@ -56,7 +58,7 @@ export class NewsController {
   async updateOne(
     @Body() data: UpdateOneDto,
     @UploadedFile() file: Express.Multer.File,
-    @Param('id') id: string,
+    @Param() { id }: ParamsIdDto,
   ) {
     const { destination, filename } = file || {};
     const image = destination && `${destination.split('/').pop()}/${filename}`;
@@ -65,7 +67,7 @@ export class NewsController {
   }
   //delete
   @Delete(':id')
-  async deleteOne(@Param('id') id: string) {
+  async deleteOne(@Param() { id }: ParamsIdDto) {
     await this.newsService.deleteOne(id);
   }
 }

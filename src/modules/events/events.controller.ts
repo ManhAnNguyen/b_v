@@ -17,6 +17,7 @@ import { CreateOneDto } from './dto/create-events.dto';
 import { CustomFileInterceptor } from 'src/common/interceptors/upload.interceptor';
 import { EFieldEvent, EStatusEvent } from 'src/common/utils/enums';
 import { UpdateOneDto } from './dto/update-events.dto';
+import { ParamsIdDto } from 'src/common/dtos/params-id.dto';
 
 @Controller('events')
 export class EventsController {
@@ -49,7 +50,7 @@ export class EventsController {
 
   //delete
   @Delete(':id')
-  async deleteOne(@Param('id') id: string) {
+  async deleteOne(@Param() { id }: ParamsIdDto) {
     await this.eventsService.deleteOne(id);
   }
 
@@ -60,7 +61,7 @@ export class EventsController {
   async updateOne(
     @Body() data: UpdateOneDto,
     @UploadedFile() file: Express.Multer.File,
-    @Param('id') id: string,
+    @Param() { id }: ParamsIdDto,
   ) {
     const { destination, filename } = file || {};
     const image = destination && `${destination.split('/').pop()}/${filename}`;

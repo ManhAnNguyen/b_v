@@ -11,6 +11,7 @@ import { NewsModule } from './modules/news/news.module';
 import * as dotenv from 'dotenv';
 import { PageMiddleware } from './common/middlewares/page.middleware';
 import { EventsModule } from './modules/events/events.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ dotenv.config();
     BannersModule,
     NewsModule,
     EventsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
